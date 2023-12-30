@@ -15,7 +15,7 @@ ALLEGRO_DISPLAY* game_display;
 ALLEGRO_EVENT_QUEUE* game_event_queue;
 // TODO: [Declare variables]
 // Declare the variables that stores the timer.
-
+ALLEGRO_TIMER* game_update_timer;
 // Frame rate (frame per second)
 const int FPS = 30;
 // Define screen width and height as constants.
@@ -105,15 +105,17 @@ void allegro5_init(void) {
         game_abort("failed to initialize primitives add-on");
     // TODO: [Install keyboard]
     // Don't forget to check the return value.
-
+    if (!al_install_keyboard())
+        game_abort("failed to install keyboard");
     al_register_event_source(game_event_queue, al_get_display_event_source(game_display));
     // TODO: [Register keyboard to event queue]
-    
+    al_register_event_source(game_event_queue, al_get_keyboard_event_source());
+    al_register_event_source(game_event_queue, al_get_timer_event_source(game_update_timer));
     // TODO: [Register timer to event queue]
     
     // TODO: [Start the timer]
     // Start the timer to update and draw the game.
-    
+    al_start_timer(game_update_timer);
 }
 
 void game_init(void) {
@@ -135,6 +137,18 @@ void game_start_event_loop(void) {
         //    corresponding element in 'key_state' to false.
         // 3) If the event's type is ALLEGRO_EVENT_TIMER and the source
         //    is your timer, call 'game_update' and 'game_draw'.
+        else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+            game_log("Key with keycode %d down", event.keyboard.keycode);
+            key_state[event.keyboard.keycode] = true;
+        } else if (event.type == ALLEGRO_EVENT_KEY_UP) {
+            game_log("Key with keycode %d up", event.keyboard.keycode);
+            key_state[event.keyboard.keycode] = false;
+        } else if (event.type == ALLEGRO_EVENT_TIMER) {
+            // Event for redrawing the display.
+            if (event.timer.source == game_update_timer) {
+                game_update();
+                game_draw();
+            }
     }
 }
 
