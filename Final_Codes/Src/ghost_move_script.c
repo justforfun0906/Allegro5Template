@@ -21,13 +21,13 @@ static void ghost_move_script_FLEE(Ghost* ghost, Map* M, const Pacman* const pac
 static void ghost_move_script_FREEDOM_random(Ghost* ghost, Map* M) {
 	// TODO-HACKATHON 2-4: Uncomment the following code and finish pacman picking random direction.
 	// hint: see generateRandomNumber in utility.h
-
+	/*
 	static Directions proba[4]; // possible movement
 	int cnt = 0;
 	for (Directions i = 1; i <= 4; i++)
 		if (ghost_movable(ghost,M,i,1)) 	proba[cnt++] = i;
 	ghost_NextMove(ghost, proba[generateRandomNumber(0,cnt)]);
-
+	*/
 	// TODO-GC-random_movement: (Not in Hackathon) 
 	// Description:
 	// For red(Blinky) ghost, we ask you to implement an random strategy ghost, 
@@ -36,25 +36,33 @@ static void ghost_move_script_FREEDOM_random(Ghost* ghost, Map* M) {
 	// (The code above DO perform walking back and forth.)
 	// Replace the above code by finish followings.
 	// hint: record the previous move, and skip it when adding direction into array proba
-	/*
-	Direction counter_one = RIGHT;
+	Directions counter_one = RIGHT;
 	switch(ghost->objData.preMove) {
 		case RIGHT:
 			counter_one = LEFT;
-		case ...
+			break;
+		case LEFT:
+			counter_one = RIGHT;
+			break;
+		case UP:
+			counter_one = DOWN;
+			break;
+		case DOWN:
+			counter_one = UP;
+			break;
+		default:
+			break;
 	}
-
 	static Directions proba[4]; // possible movement
 	int cnt = 0;
 	for (Directions i = 1; i <= 4; i++)
-		if (i != counter_one && ghost_movable(...)) 	proba[cnt++] = i;
+		if (i != counter_one && ghost_movable(ghost,M,i,1)) 	proba[cnt++] = i;
 	if (cnt >= 1) {
-		ghost_NextMove(ghost, proba[generateRandomNumber(...)]);
+		ghost_NextMove(ghost, proba[generateRandomNumber(0,cnt)]);
 	}
 	else { // for the dead end case
-		ghost_NextMove(ghost, ...);
+		ghost_NextMove(ghost, counter_one);
 	}
-	*/
 }
 
 static void ghost_move_script_FREEDOM_shortest_path(Ghost* ghost, Map* M, Pacman* pman)
