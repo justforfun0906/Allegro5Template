@@ -2,7 +2,7 @@
 // In this task, you'll learn how to use the allegro5 library to
 // display an empty window.
 // You only need to enter codes below the 'TODO' comments.
-
+//some random changes
 #include <stdio.h>
 #include <allegro5/allegro.h>
 
