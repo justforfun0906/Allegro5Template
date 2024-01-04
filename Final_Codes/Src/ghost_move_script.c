@@ -67,9 +67,26 @@ static void ghost_move_script_FREEDOM_random(Ghost* ghost, Map* M) {
 
 static void ghost_move_script_FREEDOM_shortest_path(Ghost* ghost, Map* M, Pacman* pman)
 {
-	//need the same method used in random_move to avoid going back and forth;
 	Directions next = shortest_path_direc(M, ghost->objData.Coord.x, ghost->objData.Coord.y, pman->objData.Coord.x, pman->objData.Coord.y);
-	ghost->objData.nextTryMove = shortest_path_direc(M, ghost->objData.Coord.x, ghost->objData.Coord.y, pman->objData.Coord.x, pman->objData.Coord.y);
+	Directions counter_one = RIGHT;
+	switch(ghost->objData.preMove) {
+		case RIGHT:
+			counter_one = LEFT;
+			break;
+		case LEFT:
+			counter_one = RIGHT;
+			break;
+		case UP:
+			counter_one = DOWN;
+			break;
+		case DOWN:
+			counter_one = UP;
+			break;
+		default:
+			break;
+	}
+	if(next!=counter_one) ghost->objData.nextTryMove = shortest_path_direc(M, ghost->objData.Coord.x, ghost->objData.Coord.y, pman->objData.Coord.x, pman->objData.Coord.y);
+	else return;
 }
 
 static void ghost_move_script_BLOCKED(Ghost* ghost, Map* M) {
