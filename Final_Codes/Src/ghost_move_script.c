@@ -212,9 +212,7 @@ void ghost_move_script_shortest_path(Ghost* ghost, Map* M, Pacman* pacman) {
 				ghost->status = GO_OUT;
 			break;
 		case FREEDOM:
-			int t = generateRandomNumber(1,3);
-			if(t!=1)ghost_move_script_FREEDOM_shortest_path(ghost, M, pacman);
-			else ghost_move_script_FREEDOM_random(ghost,M);
+			ghost_move_script_FREEDOM_random(ghost,M);
 			break;
 		case GO_OUT:
 			ghost_move_script_GO_OUT(ghost, M);
