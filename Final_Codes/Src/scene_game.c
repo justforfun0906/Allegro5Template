@@ -146,8 +146,9 @@ static void status_update(void) {
 				if(!cheat_mode&&RecAreaOverlap(&pman_area,&ghost_area)){
 					game_log("collide with ghost\n");
 					al_rest(1.0);
+					game_over=true;
 					pacman_die();
-					game_over = true;
+					//game_over = true;
 					break; // animation shouldn't be trigger twice.
 				}
 			}

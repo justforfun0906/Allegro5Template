@@ -210,4 +210,6 @@ void pacman_NextMove(Pacman* pacman, Directions next) {
 void pacman_die() {
 	// TODO-GC-game_over: play sound of pacman's death! see shared.c
 	// hint: check pacman_eatItem(...) above.
+	stop_bgm(PACMAN_MOVESOUND_ID);
+	play_audio(PACMAN_DEATH_SOUND, effect_volume);
 }
