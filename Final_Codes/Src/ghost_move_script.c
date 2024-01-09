@@ -85,8 +85,8 @@ static void ghost_move_script_FREEDOM_shortest_path(Ghost* ghost, Map* M, Pacman
 		default:
 			break;
 	}
-	if(next!=counter_one) ghost->objData.nextTryMove = shortest_path_direc(M, ghost->objData.Coord.x, ghost->objData.Coord.y, pman->objData.Coord.x, pman->objData.Coord.y);
-	else return;
+	if(next!=counter_one&&ghost_movable(ghost,M,next,1)) ghost->objData.nextTryMove = shortest_path_direc(M, ghost->objData.Coord.x, ghost->objData.Coord.y, pman->objData.Coord.x, pman->objData.Coord.y);
+	else ghost_move_script_FREEDOM_random(ghost, M);
 }
 
 static void ghost_move_script_BLOCKED(Ghost* ghost, Map* M) {
@@ -202,6 +202,7 @@ void ghost_move_script_shortest_path(Ghost* ghost, Map* M, Pacman* pacman) {
 	// TODO-GC-movement: do a little modification on shortest path move script
 	// Since always shortest path strategy is too strong, player have no chance to win this.
 	// hint: Do shortest path sometime and do random move sometime.
+	int random_num;
 	if (!movetime(ghost->speed))
 		return;
 		switch (ghost->status)
@@ -212,7 +213,9 @@ void ghost_move_script_shortest_path(Ghost* ghost, Map* M, Pacman* pacman) {
 				ghost->status = GO_OUT;
 			break;
 		case FREEDOM:
-			ghost_move_script_FREEDOM_random(ghost,M);
+			random_num = generateRandomNumber(1,3);
+			if(random_num!=1)ghost_move_script_FREEDOM_shortest_path(ghost,M,pacman);
+			else ghost_move_script_FREEDOM_random(ghost, M);
 			break;
 		case GO_OUT:
 			ghost_move_script_GO_OUT(ghost, M);
