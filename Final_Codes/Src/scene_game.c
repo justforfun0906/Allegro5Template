@@ -140,16 +140,17 @@ static void status_update(void) {
 			// And perform corresponding operations.
 			// [NOTE] You should have some if-else branch here if you want to implement power bean mode.
 			// Uncomment Following Code
-			/*
-			if(!cheat_mode and collision of pacman and ghost)
-			{
+			for(int i=0;i<GHOST_NUM;i++){
+				RecArea pman_area = getDrawArea((object*)pman,GAME_TICK_CD);
+				RecArea ghost_area = getDrawArea((object*)ghosts[i],GAME_TICK_CD);
+				if(!cheat_mode&&RecAreaOverlap(&pman_area,&ghost_area)){
 					game_log("collide with ghost\n");
 					al_rest(1.0);
 					pacman_die();
 					game_over = true;
 					break; // animation shouldn't be trigger twice.
+				}
 			}
-			*/
 		}
 		else if (ghosts[i]->status == FLEE)
 		{
