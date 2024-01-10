@@ -62,6 +62,20 @@ Ghost* ghost_create(int flag) {
 		ghost->move_sprite = load_bitmap("Assets/ghost_move_pink.png");
 		ghost->move_script = &ghost_move_script_shortest_path;
 		break;
+	case Inky:
+		// *load move script of shortest_path
+		ghost->objData.Coord.x = cage_grid_x;
+		ghost->objData.Coord.y = cage_grid_y;
+		ghost->move_sprite = load_bitmap("Assets/ghost_move_blue.png");
+		ghost->move_script = &ghost_move_script_shortest_path;
+		break;
+	case Clyde:
+		// *load move script of shortest_path
+		ghost->objData.Coord.x = cage_grid_x;
+		ghost->objData.Coord.y = cage_grid_y;
+		ghost->move_sprite = load_bitmap("Assets/ghost_move_orange.png");
+		ghost->move_script = &ghost_move_script_shortest_path;
+		break;
 	default:
 		ghost->objData.Coord.x = cage_grid_x;
 		ghost->objData.Coord.y = cage_grid_y;
@@ -129,13 +143,55 @@ void ghost_draw(Ghost* ghost) {
 	else {
 		// TODO-GC-animation: ghost animation
 		// *draw ghost->move_sprite
-		/*
+		int offset = 0;
 		switch (ghost->objData.facing)
 		{
-		case LEFT:
-			...
+			case RIGHT:{
+				offset = 0;
+				al_draw_scaled_bitmap(ghost->move_sprite, offset, 0,
+					16, 16,
+					drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+					draw_region, draw_region, 0
+				);
+				break;
+			}
+			case LEFT:{
+				offset = 32;
+				al_draw_scaled_bitmap(ghost->move_sprite, offset, 0,
+					16, 16,
+					drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+					draw_region, draw_region, 0
+				);
+				break;
+			}
+			case UP:{
+				offset = 64;
+				al_draw_scaled_bitmap(ghost->move_sprite, offset, 0,
+					16, 16,
+					drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+					draw_region, draw_region, 0
+				);
+				break;
+			}
+			case DOWN:{
+				offset = 96;
+				al_draw_scaled_bitmap(ghost->move_sprite, offset, 0,
+					16, 16,
+					drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+					draw_region, draw_region, 0
+				);
+				break;
+			}
+			default:{
+				offset = 0;
+				al_draw_scaled_bitmap(ghost->move_sprite, offset, 0,
+					16, 16,
+					drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+					draw_region, draw_region, 0
+				);
+				break;
+			}
 		}
-		*/
 	}
 
 }
