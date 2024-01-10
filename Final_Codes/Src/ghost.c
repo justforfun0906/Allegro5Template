@@ -144,10 +144,16 @@ void ghost_draw(Ghost* ghost) {
 		// TODO-GC-animation: ghost animation
 		// *draw ghost->move_sprite
 		int offset = 0;
+		if((ghost->objData.moveCD >> 4)& 1){
+			offset = 16;
+		}
+		else{
+			offset = 0;
+		}
 		switch (ghost->objData.facing)
 		{
 			case RIGHT:{
-				offset = 0;
+				//offset = 0;
 				al_draw_scaled_bitmap(ghost->move_sprite, offset, 0,
 					16, 16,
 					drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
@@ -156,8 +162,8 @@ void ghost_draw(Ghost* ghost) {
 				break;
 			}
 			case LEFT:{
-				offset = 32;
-				al_draw_scaled_bitmap(ghost->move_sprite, offset, 0,
+				//offset = 32;
+				al_draw_scaled_bitmap(ghost->move_sprite, 32+offset, 0,
 					16, 16,
 					drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
 					draw_region, draw_region, 0
@@ -165,8 +171,8 @@ void ghost_draw(Ghost* ghost) {
 				break;
 			}
 			case UP:{
-				offset = 64;
-				al_draw_scaled_bitmap(ghost->move_sprite, offset, 0,
+				//offset = 64;
+				al_draw_scaled_bitmap(ghost->move_sprite, 64+offset, 0,
 					16, 16,
 					drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
 					draw_region, draw_region, 0
@@ -174,8 +180,8 @@ void ghost_draw(Ghost* ghost) {
 				break;
 			}
 			case DOWN:{
-				offset = 96;
-				al_draw_scaled_bitmap(ghost->move_sprite, offset, 0,
+				//offset = 96;
+				al_draw_scaled_bitmap(ghost->move_sprite, 96+offset, 0,
 					16, 16,
 					drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
 					draw_region, draw_region, 0
@@ -183,7 +189,7 @@ void ghost_draw(Ghost* ghost) {
 				break;
 			}
 			default:{
-				offset = 0;
+				//offset = 0;
 				al_draw_scaled_bitmap(ghost->move_sprite, offset, 0,
 					16, 16,
 					drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
