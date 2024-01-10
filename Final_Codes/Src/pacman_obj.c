@@ -82,12 +82,10 @@ Pacman* pacman_create() {
 
 void pacman_destroy(Pacman* pman) {	
 	// TODO-GC-memory: free pacman resource
-	/*
-		al_destroy_bitmap(pman->...);
-		al_destroy_timer(pman->...);
-		...
+		al_destroy_bitmap(pman->move_sprite);
+		al_destroy_bitmap(pman->die_sprite);
+		al_destroy_timer(pman->death_anim_counter);
 		free(pman);
-	*/
 }
 
 
@@ -108,7 +106,7 @@ void pacman_draw(Pacman* pman) {
 		// TODO-GC-animation: We have two frames for each direction. You can use the value of pman->objData.moveCD to determine which frame of the animation to draw.
 		// For example, if the value if odd, draw 1st frame. Otherwise, draw 2nd frame.
 		// But this frame rate may be a little bit too high. We can use % 32 and draw 1st frame if value is 0~15, and 2nd frame if value is 16~31.
-		/*
+		/*pacman_draw
 		if(pman->objData.moveCD % 2 == 0){
 			offset = 0
 		}

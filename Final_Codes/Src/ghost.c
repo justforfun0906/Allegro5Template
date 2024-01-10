@@ -71,14 +71,12 @@ Ghost* ghost_create(int flag) {
 	}
 	return ghost;
 }
-void ghost_destory(Ghost* ghost) {
+void ghost_destroy(Ghost* ghost) {
 	// TODO-GC-memory: free ghost resource
-
-	/*
-		al_destory_bitmap(...);
-		...
+		al_destroy_bitmap(ghost->move_sprite);
+		al_destroy_bitmap(ghost->flee_sprite);
+		al_destroy_bitmap(ghost->dead_sprite);
 		free(ghost);
-	*/
 }
 void ghost_draw(Ghost* ghost) {
 	RecArea drawArea = getDrawArea((object*)ghost, GAME_TICK_CD);
