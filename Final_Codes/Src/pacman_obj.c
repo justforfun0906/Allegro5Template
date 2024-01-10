@@ -163,6 +163,11 @@ void pacman_draw(Pacman* pman) {
 		// TODO-GC-animation: Draw die animation(pman->die_sprite)
 		// hint: instead of using pman->objData.moveCD, use pman->death_anim_counter to create animation.
 		// refer al_get_timer_count and al_draw_scaled_bitmap. Suggestion frame rate: 8fps.
+		al_draw_scaled_bitmap(pman->die_sprite, 16*(al_get_timer_count(pman->death_anim_counter)), 0,
+			16, 16,
+			drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+			draw_region, draw_region, 0
+		);
 	}
 }
 void pacman_move(Pacman* pacman, Map* M) {

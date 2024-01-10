@@ -168,12 +168,16 @@ static void update(void) {
 	if (game_over) {
 		// TODO-GC-game_over: start pman->death_anim_counter and schedule a game-over event (e.g change scene to menu) after Pacman's death animation finished
 		// hint: refer al_get_timer_started(...), al_get_timer_count(...), al_stop_timer(...), al_rest(...)
-		/*
 			// start the timer if it hasn't been started.
+			if(!al_get_timer_started(pman->death_anim_counter))
+				al_start_timer(pman->death_anim_counter);
 			// check timer counter.
+			if(al_get_timer_count(pman->death_anim_counter) > 12){
+				al_stop_timer(pman->death_anim_counter);
+				game_change_scene(scene_menu_create());
+			}
 			// stop the timer if counter reach desired time.
-			game_change_scene(...);
-		*/
+
 		return;
 	}
 
@@ -241,6 +245,9 @@ static void printinfo(void) {
 
 static void destroy(void) {
 	// TODO-GC-memory: free map array, Pacman and ghosts
+	ghost_destroy(ghosts[0]);
+	pacman_destroy(pman);
+	delete_map(basic_map);
 }
 
 static void on_key_down(int key_code) {

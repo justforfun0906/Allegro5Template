@@ -136,14 +136,10 @@ void delete_map(Map* M) {
 	if (!M)
 		return;
 	// TODO-GC-memory: free the dynamic allocated part of Map* M at here;
-	/*
-	if(M->map)
-	{
-		...
-		free(...)
-		...
-	*/
-	free(M);
+	if(M->map){
+		free(M->map);
+		free(M);
+	}
 }
 
 
