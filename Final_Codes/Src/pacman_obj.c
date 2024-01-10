@@ -95,22 +95,23 @@ void pacman_draw(Pacman* pman) {
 	RecArea drawArea = getDrawArea((object *)pman, GAME_TICK_CD);
 
 	//Draw default image
+	/*
 	al_draw_scaled_bitmap(pman->move_sprite, 0, 0,
 		16, 16,
 		drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
 		draw_region, draw_region, 0
 	);
-	
+	*/
 	int offset = 0;
 	if (!game_over) {
 		// TODO-GC-animation: We have two frames for each direction. You can use the value of pman->objData.moveCD to determine which frame of the animation to draw.
 		// For example, if the value if odd, draw 1st frame. Otherwise, draw 2nd frame.
 		// But this frame rate may be a little bit too high. We can use % 32 and draw 1st frame if value is 0~15, and 2nd frame if value is 16~31.
 		//pacman_draw:
-		if(pman->objData.moveCD % 2 == 0){
+		if((pman->objData.moveCD>>4)&1 == 0){
 			offset = 0;
 		}
-		else if(pman->objData.moveCD % 2 == 1){
+		else if((pman->objData.moveCD>>4)&1 == 1){
 			offset = 16;
 		}
 		/*
@@ -144,6 +145,13 @@ void pacman_draw(Pacman* pman) {
 			break;
 		case DOWN:
 			al_draw_scaled_bitmap(pman->move_sprite, 96+offset, 0,
+				16, 16,
+				drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+				draw_region, draw_region, 0
+			);
+			break;
+		default:
+			al_draw_scaled_bitmap(pman->move_sprite, 0, 0,
 				16, 16,
 				drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
 				draw_region, draw_region, 0
