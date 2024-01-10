@@ -106,40 +106,50 @@ void pacman_draw(Pacman* pman) {
 		// TODO-GC-animation: We have two frames for each direction. You can use the value of pman->objData.moveCD to determine which frame of the animation to draw.
 		// For example, if the value if odd, draw 1st frame. Otherwise, draw 2nd frame.
 		// But this frame rate may be a little bit too high. We can use % 32 and draw 1st frame if value is 0~15, and 2nd frame if value is 16~31.
-		/*pacman_draw
+		//pacman_draw:
 		if(pman->objData.moveCD % 2 == 0){
-			offset = 0
+			offset = 0;
 		}
-		else if(pamn->objData.moveCD % 2 == 1){
-			offset = 16
+		else if(pman->objData.moveCD % 2 == 1){
+			offset = 16;
 		}
-		*/
 		/*
 		NOTE: since modulo operation is expensive in clock cycle perspective (reference: https://stackoverflow.com/questions/27977834/why-is-modulus-operator-slow)
 			, you can use & (bitwise and) operator to determine a value is odd or even.
 			e.g. If (val & 1 == 1) is true then `val` is odd. If (val & 1 == 0) is false then `val` is even.
 			e.g. Similarly, if ((val>>4) & 1 == 0) is true then `val % 32` is 0~15, if ((val>>4) & 1 == 1) is true then `val % 32` is 16~31. 
 		*/
-		/*
 		switch(pman->objData.facing)
 		{
 		case LEFT:
-			al_draw_scaled_bitmap(pman->move_sprite, ... + offset, 0,
+			al_draw_scaled_bitmap(pman->move_sprite, 32+offset, 0,
 				16, 16,
 				drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
 				draw_region, draw_region, 0
 			);
 			break;
-		case LEFT:
-			al_draw_scaled_bitmap(pman->move_sprite, ... + offset, 0,
+		case RIGHT:
+			al_draw_scaled_bitmap(pman->move_sprite, offset, 0,
 				16, 16,
 				drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
 				draw_region, draw_region, 0
 			);
 			break;
-		case ...
+		case UP:
+			al_draw_scaled_bitmap(pman->move_sprite, 64+offset, 0,
+				16, 16,
+				drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+				draw_region, draw_region, 0
+			);
+			break;
+		case DOWN:
+			al_draw_scaled_bitmap(pman->move_sprite, 96+offset, 0,
+				16, 16,
+				drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+				draw_region, draw_region, 0
+			);
+			break;
 		}
-		*/
 	}
 	else {
 		// TODO-GC-animation: Draw die animation(pman->die_sprite)
