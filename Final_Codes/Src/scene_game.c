@@ -245,7 +245,9 @@ static void printinfo(void) {
 
 static void destroy(void) {
 	// TODO-GC-memory: free map array, Pacman and ghosts
-	ghost_destroy(ghosts[0]);
+	for(int i=0;i<GHOST_NUM;i++)
+		ghost_destroy(ghosts[i]);
+	free(ghosts);
 	pacman_destroy(pman);
 	delete_map(basic_map);
 }
