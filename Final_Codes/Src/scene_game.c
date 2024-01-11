@@ -164,12 +164,11 @@ static void status_update(void) {
 		else if (ghosts[i]->status == FLEE)
 		{
 			// TODO-GC-PB: if ghost is collided by pacman, it should go back to the cage immediately and come out after a period.
-			/*
-			if(!cheat_mode and collision of pacman and ghost)
-			{
-				ghost_collided(...)
+			RecArea pman_area = getDrawArea((object*)pman,GAME_TICK_CD);
+			RecArea ghost_area = getDrawArea((object*)ghosts[i],GAME_TICK_CD);
+			if(!cheat_mode && RecAreaOverlap(&pman_area,&ghost_area)){
+				ghost_collided(ghosts[i]);
 			}
-			*/
 		}
 	}
 }
