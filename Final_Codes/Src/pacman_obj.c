@@ -216,6 +216,7 @@ void pacman_eatItem(Pacman* pacman, const char Item) {
 	// TODO-GC-PB: set pacman powerUp mode
 	case 'P':
 		pacman->powerUp = true;
+		game_abort("Power up!");
 		break;
 	default:
 		break;
