@@ -108,7 +108,9 @@ static void checkItem(void) {
 		game_main_Score += 10;
 	case 'P':
 		// TODO-GC-PB: ease power bean
-		// pacman_eatItem(...);
+		pacman_eatItem(pman,'P');
+		al_set_timer_count(power_up_timer, 0);
+		if(!al_get_timer_started(power_up_timer))al_start_timer(power_up_timer);
 		// stop and reset power_up_timer value
 		// start the timer
 		break;
@@ -121,14 +123,26 @@ static void checkItem(void) {
 }
 static void status_update(void) {
 	// TODO-PB: check powerUp duration
-	/*
 	if (pman->powerUp)
 	{
 		// Check the value of power_up_timer
 		// If runs out of time reset all relevant variables and ghost's status
 		// hint: ghost_toggle_FLEE
+		if(al_get_timer_count(power_up_timer) > power_up_duration){
+			pman->powerUp = false;
+			al_stop_timer(power_up_timer);
+			for(int i=0;i<GHOST_NUM;i++){
+				if(ghosts[i]->status == FLEE)
+					ghost_toggle_FLEE(ghosts[i],false);
+			}
+		}
+		if(al_get_timer_count(power_up_timer)<power_up_duration){
+			for(int i=0;i<GHOST_NUM;i++){
+				if(ghosts[i]->status == FREEDOM)
+					ghost_toggle_FLEE(ghosts[i],true);
+			}
+		}
 	}
-	*/
 
 
 	for (int i = 0; i < GHOST_NUM; i++) {
