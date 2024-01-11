@@ -138,14 +138,34 @@ static void ghost_move_script_FLEE(Ghost* ghost, Map* M, const Pacman * const pa
 	// To achieve this, think in this way. We first get the direction to shortest path to pacman, call it K (K is either UP, DOWN, RIGHT or LEFT).
 	// Then we choose other available direction rather than direction K.
 	// In this way, ghost will escape from pacman.
-	Directions next_move = shortestDirection; 
-	for(Directions i=1;i<=4;i++){
-		if(i!=shortestDirection&&ghost_movable(ghost,M,i,1)){
-			next_move = i;
+	Directions next_move = shortestDirection;
+	Directions counter_one = RIGHT;
+	switch(ghost->objData.preMove) {
+		case RIGHT:
+			counter_one = LEFT;
 			break;
-		}
+		case LEFT:
+			counter_one = RIGHT;
+			break;
+		case UP:
+			counter_one = DOWN;
+			break;
+		case DOWN:
+			counter_one = UP;
+			break;
+		default:
+			break;
 	}
-	ghost_NextMove(ghost, next_move);
+	static Directions proba[4]; // possible movement
+	int cnt = 0;
+	for (Directions i = 1; i <= 4; i++)
+		if (i != counter_one && i!=shortestDirection&&ghost_movable(ghost,M,i,1)) 	proba[cnt++] = i;
+	if (cnt >= 1) {
+		ghost_NextMove(ghost, proba[generateRandomNumber(0,cnt-1)]);
+	}
+	else { // for the dead end case
+		ghost_NextMove(ghost, shortestDirection);
+	}
 }
 
 void ghost_move_script_random(Ghost* ghost, Map* M, Pacman* pacman) {

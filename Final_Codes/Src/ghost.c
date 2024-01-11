@@ -109,7 +109,7 @@ void ghost_draw(Ghost* ghost) {
 	int bitmap_x_offset = 0;
 	int FLEE_offset = 0;
 	if (ghost->status == FLEE) {
-		// TODO-PB-animation: ghost FLEE animation, draw blue flee sprites,
+		// done-TODO-PB-animation: ghost FLEE animation, draw blue flee sprites,
 		//						 while time is running out, alternatively draw blue and white flee sprites.
 		// *draw ghost->flee_sprite
 		/* hint: try to add some function in scene_game.h and scene_game.c that
