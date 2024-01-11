@@ -270,7 +270,6 @@ void ghost_toggle_FLEE(Ghost* ghost, bool setFLEE) {
 	// setFLEE = true => set to FLEE, setFLEE = false => reset to FREEDOM
 	if(setFLEE){
 		// set FREEDOM ghost's status to FLEE and make them slow 
-		game_abort("ghost set flee");
 		if(ghost->status == FREEDOM){
 			ghost->status = FLEE;
 			ghost->speed = 1;

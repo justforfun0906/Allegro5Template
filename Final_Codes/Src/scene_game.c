@@ -131,7 +131,7 @@ static void status_update(void) {
 	if (al_get_timer_started(power_up_timer)&&al_get_timer_count(power_up_timer)>power_up_duration){
 		al_stop_timer(power_up_timer);
 		pman->powerUp = false;
-		game_abort("Power up end!");
+		game_log("Power up end!");
 		for(int i=0;i<GHOST_NUM;i++){
 			ghost_toggle_FLEE(ghosts[i],false);
 		}
