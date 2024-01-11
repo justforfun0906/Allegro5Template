@@ -117,7 +117,7 @@ static void checkItem(void) {
 	}
 	// TODO-HACKATHON 1-4: erase the item you eat from map
 	// Be careful, don't erase the wall block.
-	basic_map->map[Grid_y][Grid_x]=" ";
+	basic_map->map[Grid_y][Grid_x]=' ';
 }
 static void status_update(void) {
 	// TODO-PB: check powerUp duration
