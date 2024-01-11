@@ -214,11 +214,9 @@ void pacman_eatItem(Pacman* pacman, const char Item) {
 		PACMAN_MOVESOUND_ID = play_audio(PACMAN_MOVESOUND, effect_volume);
 		break;
 	// TODO-GC-PB: set pacman powerUp mode
-	/*
 	case 'P':
-		...
+		pacman->powerUp = true;
 		break;
-	*/
 	default:
 		break;
 	}
