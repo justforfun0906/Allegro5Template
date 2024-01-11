@@ -168,6 +168,7 @@ static void status_update(void) {
 			RecArea ghost_area = getDrawArea((object*)ghosts[i],GAME_TICK_CD);
 			if(!cheat_mode && RecAreaOverlap(&pman_area,&ghost_area)){
 				ghost_collided(ghosts[i]);
+				game_main_Score+=100;
 			}
 		}
 	}
