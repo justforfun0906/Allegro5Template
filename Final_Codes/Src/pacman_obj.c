@@ -108,10 +108,10 @@ void pacman_draw(Pacman* pman) {
 		// For example, if the value if odd, draw 1st frame. Otherwise, draw 2nd frame.
 		// But this frame rate may be a little bit too high. We can use % 32 and draw 1st frame if value is 0~15, and 2nd frame if value is 16~31.
 		//pacman_draw:
-		if((pman->objData.moveCD>>4)&1 == 0){
+		if(((pman->objData.moveCD>>4)&1) == 0){
 			offset = 0;
 		}
-		else if((pman->objData.moveCD>>4)&1 == 1){
+		else if(((pman->objData.moveCD>>4)&1) == 1){
 			offset = 16;
 		}
 		/*
