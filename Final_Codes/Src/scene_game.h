@@ -5,11 +5,10 @@
 #ifndef SCENE_GAME_H
 #define SCENE_GAME_H
 #include "game.h"
-
 Scene scene_main_create(void);
-/*
+
 int64_t get_power_up_timer_tick();
 int64_t get_power_up_duration();
-*/
+
 
 #endif

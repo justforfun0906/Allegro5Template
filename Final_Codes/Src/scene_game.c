@@ -327,6 +327,12 @@ static void render_init_screen(void) {
 	al_rest(2.0);
 
 }
+int64_t get_power_up_duration(void){
+	return power_up_duration;
+}
+int64_t get_power_up_timer_tick(void){
+	return al_get_timer_count(power_up_timer);
+}
 // Functions without 'static', 'extern' prefixes is just a normal
 // function, they can be accessed by other files using 'extern'.
 // Define your normal function prototypes below.

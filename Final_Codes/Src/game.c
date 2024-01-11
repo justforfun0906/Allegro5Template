@@ -79,7 +79,6 @@ void game_create() {
 		(*active_scene.destroy)();
 	game_destroy();
 }
-
 static void allegro5_init(void) {
 	if (!al_init())
 		game_abort("failed to initialize allegro");

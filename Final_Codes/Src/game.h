@@ -89,7 +89,6 @@ void game_abort(const char* format, ...);
 // Write formatted output to stdout and file from the format string.
 // You can inspect "log.txt" for logs in the last run.
 void game_log(const char* format, ...);
-
 /* Functions and variables that should be implemented in other files. */
 
 // Initialize shared variables and resources.

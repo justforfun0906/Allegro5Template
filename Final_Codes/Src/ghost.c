@@ -3,7 +3,7 @@
 #include "ghost.h"
 #include "map.h"
 #include "pacman_obj.h"
-
+#include "scene_game.h"
 /* global variables*/
 // [ NOTE ]
 // if you change the map .txt to your own design.
@@ -96,17 +96,18 @@ void ghost_draw(Ghost* ghost) {
 	RecArea drawArea = getDrawArea((object*)ghost, GAME_TICK_CD);
 
 	//Draw default image
-	al_draw_scaled_bitmap(ghost->move_sprite, 0, 0,
+	/*al_draw_scaled_bitmap(ghost->move_sprite, 0, 0,
 		16, 16,
 		drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
 		draw_region, draw_region, 0
-	);
+	);*/
 
 	// Draw ghost according to its status and use ghost->objData.moveCD value to determine which frame of the animation to draw.
 	// hint: please refer comments in pacman_draw 
 	// Since ghost has more status, we suggest you finish pacman_draw first. The logic is very similar.
 
 	int bitmap_x_offset = 0;
+	int FLEE_offset = 0;
 	if (ghost->status == FLEE) {
 		// TODO-PB-animation: ghost FLEE animation, draw blue flee sprites,
 		//						 while time is running out, alternatively draw blue and white flee sprites.
@@ -114,21 +115,32 @@ void ghost_draw(Ghost* ghost) {
 		/* hint: try to add some function in scene_game.h and scene_game.c that
 			gets the value of `power_up_timer` and `power_up_duration`.
 		*/ 
-		/*
-			if (it has run out of 70% of the time of power mode  )
-			{
-				// alternately draw blue and white sprites
-				if (ghost->objData.moveCD >> 4)& 1) {
-					bitmap_x_offset = ...;
-				}
-				al_draw_scaled_bitmap(...)
+		float portion=(get_power_up_timer_tick()/get_power_up_duration());
+		if (portion>0.7){
+			// alternately draw blue and white sprites
+			if ((ghost->objData.moveCD >> 4)& 1) {
+				if((ghost->objData.moveCD>>3)&1) FLEE_offset = 0;
+				else FLEE_offset = 16;
+			}else{
+				if((ghost->objData.moveCD>>3)&1) FLEE_offset = 32;
+				else FLEE_offset = 48;
 			}
-			else 
-			{
-				// draw only blue sprite
-				al_draw_scaled_bitmap(...)
-			}
-		*/
+			al_draw_scaled_bitmap(ghost->flee_sprite, FLEE_offset, 0,
+				16, 16,
+				drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+				draw_region, draw_region, 0
+			);
+		}
+		else{
+			// draw only blue sprite
+			if((ghost->objData.moveCD>>4)&1) FLEE_offset = 0;
+			else FLEE_offset = 16;
+			al_draw_scaled_bitmap(ghost->flee_sprite, FLEE_offset, 0,
+				16, 16,
+				drawArea.x + fix_draw_pixel_offset_x, drawArea.y + fix_draw_pixel_offset_y,
+				draw_region, draw_region, 0
+			);
+		}
 	}
 	else if (ghost->status == GO_IN) {
 		// TODO-PB-animation: ghost going animation
@@ -311,6 +323,7 @@ void ghost_toggle_FLEE(Ghost* ghost, bool setFLEE) {
 void ghost_collided(Ghost* ghost) {
 	if (ghost->status == FLEE) {
 		ghost->status = GO_IN;
+		game_log("Ghost is eaten!");
 		ghost->speed = 4; // Go back to cage faster
 	}
 }
