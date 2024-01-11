@@ -138,12 +138,14 @@ static void ghost_move_script_FLEE(Ghost* ghost, Map* M, const Pacman * const pa
 	// To achieve this, think in this way. We first get the direction to shortest path to pacman, call it K (K is either UP, DOWN, RIGHT or LEFT).
 	// Then we choose other available direction rather than direction K.
 	// In this way, ghost will escape from pacman.
+	Directions next_move = shortestDirection; 
 	for(Directions i=1;i<=4;i++){
 		if(i!=shortestDirection&&ghost_movable(ghost,M,i,1)){
-			ghost_NextMove(ghost, i);
-			return;
+			next_move = i;
+			break;
 		}
 	}
+	ghost_NextMove(ghost, next_move);
 }
 
 void ghost_move_script_random(Ghost* ghost, Map* M, Pacman* pacman) {
