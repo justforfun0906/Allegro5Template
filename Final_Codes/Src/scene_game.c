@@ -105,6 +105,7 @@ static void checkItem(void) {
 	{
 	case '.':
 		pacman_eatItem(pman,'.');
+		game_main_Score += 10;
 	case 'P':
 		// TODO-GC-PB: ease power bean
 		// pacman_eatItem(...);
@@ -195,10 +196,15 @@ static void draw(void) {
 
 	
 	// TODO-GC-scoring: Draw scoreboard, something your may need is sprinf();
-	/*
-		al_draw_text(...);
-	*/
-
+	char score_line[20];
+	sprintf(score_line, "Score: %d", game_main_Score);
+	al_draw_text(
+		menuFont,
+		al_map_rgb(255, 255, 0),
+		SCREEN_W / 2, 10,
+		ALLEGRO_ALIGN_CENTER,
+		score_line
+	);
 	draw_map(basic_map);
 
 	pacman_draw(pman);
