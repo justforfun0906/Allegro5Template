@@ -69,19 +69,17 @@ Map* create_map(const char * filepath) {
 		// TODO-GC-read_txt: use fopen to open a file stream
 		// fopen reference: https://man7.org/linux/man-pages/man3/fopen.3.html
 		// use pFile and fscanf to read from file, just like read from standard input.
-		/*
 		game_log("%s\n", filepath);
-		pFile = fopen(...);
+		pFile = fopen(filepath, "r");
 		if (!pFile) {
 			game_abort("error to open map file\n");
 			return NULL;
 		}
-		if(fscanf(...) != 2) {
+		if(fscanf(pFile,"%d %d",&(M->row_num),&(M->col_num)) != 2) {
 			game_abort("Map format unmatched\n");
 			return NULL;
 		}
 		while(getc(pFile) != '\n'){};
-		*/
 	}
 
 	/*
@@ -105,7 +103,10 @@ Map* create_map(const char * filepath) {
 		for (int j = 0; j < M->col_num; j++) {
 			if (filepath == NULL)
 				M->map[i][j] = nthu_map[i][j];
-			else
+			else{
+				char temp = getc(pFile);
+				M->map[i][j] = temp;
+			}
 				// TODO-GC-read_txt: input the map from file to M->map[row][col] 
 				// '#' -> wall
 				// '.' -> beans

@@ -50,9 +50,9 @@ static void init(void) {
 	game_over = false;
 	game_main_Score = 0;
 	// create map
-	basic_map = create_map(NULL);
+	//basic_map = create_map(NULL);
 	// TODO-GC-read_txt: Create map from .txt file so that you can design your own map!!
-	// basic_map = create_map("Assets/map_nthu.txt");
+	basic_map = create_map("Assets/map_nthu.txt");
 	if (!basic_map) {
 		game_abort("error on creating map");
 	}	
