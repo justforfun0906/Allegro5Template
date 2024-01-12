@@ -5,7 +5,6 @@
 //some random changes
 #include <stdio.h>
 #include <allegro5/allegro.h>
-
 // If defined, logs will be shown on console and written to file.
 #define LOG_ENABLED
 
@@ -57,7 +56,8 @@ int main(void) {
     game_display = al_create_display(SCREEN_W, SCREEN_H);
     if (!game_display)
         game_abort("failed to create display");
-
+    //if (!al_init_native_dialog_addon())
+    //    game_abort("failed to initialize primitives add-on");
     game_log("Allegro5 initialized");
     game_log("Game begin");
     game_draw();
