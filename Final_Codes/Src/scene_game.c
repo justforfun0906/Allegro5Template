@@ -295,6 +295,24 @@ static void on_key_down(int key_code) {
 		case ALLEGRO_KEY_G:
 			debug_mode = !debug_mode;
 			break;
+		//Advanced-cheat mode
+		case ALLEGRO_KEY_K:
+			for(int i=0;i<GHOST_NUM;i++){
+				if(ghosts[i]->status != GO_IN){
+					ghosts[i]->status = GO_IN;
+					ghosts[i]->speed = 4;
+				}
+				else{
+					if(get_power_up_timer_tick() < get_power_up_duration()){
+						ghosts[i]->status = FLEE;
+						ghosts[i]->speed = 1;
+					}else{
+						ghosts[i]->status = FREEDOM;
+						ghosts[i]->speed = 2;
+					}
+				}
+			}
+			break;
 	default:
 		break;
 	}
