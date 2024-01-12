@@ -30,7 +30,7 @@ Pacman* pacman_create();
 void pacman_destroy(Pacman* pman);
 
 void pacman_draw(Pacman* pacman);
-void pacman_move(Pacman* pacman, Map* M);
+void pacman_move(Pacman* pacman, Map* M, bool wallhack);
 void pacman_eatItem(Pacman* pacman, const char Item);
 
 void pacman_NextMove(Pacman* pacman, Directions next);

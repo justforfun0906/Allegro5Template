@@ -32,6 +32,8 @@ static Ghost** ghosts;
 bool debug_mode = false;
 bool cheat_mode = false;
 bool Ctrl_pressed = false;
+bool ghost_stop = false;
+bool pman_wallhack = false;
 /* Declare static function prototypes */
 static void init(void);
 static void step(void);
@@ -196,9 +198,10 @@ static void update(void) {
 	step();
 	checkItem();
 	status_update();
-	pacman_move(pman, basic_map);
-	for (int i = 0; i < GHOST_NUM; i++) 
-		ghosts[i]->move_script(ghosts[i], basic_map, pman);
+	pacman_move(pman, basic_map,pman_wallhack);
+	if(!ghost_stop){
+		for(int i = 0; i < GHOST_NUM; i++) ghosts[i]->move_script(ghosts[i], basic_map, pman);
+	} 
 }
 
 static void draw(void) {
@@ -281,6 +284,14 @@ static void on_key_down(int key_code) {
 			pacman_NextMove(pman, LEFT);
 			break;
 		case ALLEGRO_KEY_S:
+			if(Ctrl_pressed) {
+				ghost_stop = !ghost_stop;
+				if(ghost_stop)
+					game_log("ghost stop\n");
+				else
+					game_log("ghost move\n");
+				break;
+			}
 			pacman_NextMove(pman, DOWN);
 			break;
 		case ALLEGRO_KEY_D:
@@ -314,28 +325,35 @@ static void on_key_down(int key_code) {
 				}
 			}
 			break;
+		case ALLEGRO_KEY_L:
+			if(Ctrl_pressed){
+				pman_wallhack = !pman_wallhack;
+				if(pman_wallhack)
+					game_log("pacman wallhack on\n");
+				else
+					game_log("pacman wallhack off\n");
+			}
 		case ALLEGRO_KEY_RCTRL:
 			Ctrl_pressed = true;
-			game_log("Ctrl pressed");
+			//game_log("Ctrl pressed");
 			break;
 		case ALLEGRO_KEY_LCTRL:
 			Ctrl_pressed = true;
-			game_log("Ctrl pressed");
+			//game_log("Ctrl pressed");
 			break;
-	default:
-		break;
+		default:
+			break;
 	}
-
 }
 static void on_key_up(int key_code) {
 	switch(key_code){
 		case ALLEGRO_KEY_RCTRL:
 			Ctrl_pressed = false;
-			game_log("Ctrl released");
+			//game_log("Ctrl released");
 			break;
 		case ALLEGRO_KEY_LCTRL:
 			Ctrl_pressed = false;
-			game_log("Ctrl released");
+			//game_log("Ctrl released");
 			break;
 		default:
 			break;

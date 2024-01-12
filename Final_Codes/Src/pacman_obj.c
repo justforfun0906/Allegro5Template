@@ -170,14 +170,14 @@ void pacman_draw(Pacman* pman) {
 		);
 	}
 }
-void pacman_move(Pacman* pacman, Map* M) {
+void pacman_move(Pacman* pacman, Map* M, bool wallhack) {
 	if (!movetime(pacman->speed))
 		return;
 	if (game_over)
 		return;
 
 	int probe_x = pacman->objData.Coord.x, probe_y = pacman->objData.Coord.y;
-	if (pacman_movable(pacman, M, pacman->objData.nextTryMove)) 
+	if (wallhack || pacman_movable(pacman, M, pacman->objData.nextTryMove)) 
 		pacman->objData.preMove = pacman->objData.nextTryMove;
 	else if (!pacman_movable(pacman, M, pacman->objData.preMove)) 
 		return;
