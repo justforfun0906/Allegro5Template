@@ -109,6 +109,7 @@ static void checkItem(void) {
 	case '.':
 		pacman_eatItem(pman,'.');
 		game_main_Score += 10;
+		basic_map->map[Grid_y][Grid_x]=' ';
 		break;
 	case 'P':
 		// TODO-GC-PB: ease power bean
@@ -116,13 +117,14 @@ static void checkItem(void) {
 		// stop and reset power_up_timer value
 		al_set_timer_count(power_up_timer,0);
 		if(!al_get_timer_started(power_up_timer)) al_start_timer(power_up_timer);
+		basic_map->map[Grid_y][Grid_x]=' ';
 		break;
 	default:
 		break;
 	}
 	// TODO-HACKATHON 1-4: erase the item you eat from map
 	// Be careful, don't erase the wall block.
-	basic_map->map[Grid_y][Grid_x]=' ';
+	
 }
 static void status_update(void) {
 	// TODO-PB: check powerUp duration
