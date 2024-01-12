@@ -163,7 +163,7 @@ static void status_update(void) {
 				game_log("collide with ghost\n");
 				al_rest(1.0);
 				pacman_die();
-				/*al_show_native_message_box(
+				al_show_native_message_box(
   					NULL,
   					"Warning",
   					"Are you sure?",
@@ -173,7 +173,7 @@ static void status_update(void) {
   					"message box.",
   					NULL,
   					ALLEGRO_MESSAGEBOX_YES_NO
-				);*/
+				);
 				game_over = true;
 				break; // animation shouldn't be trigger twice.
 			}
