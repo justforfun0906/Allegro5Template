@@ -42,6 +42,7 @@ static void draw(void);
 static void printinfo(void);
 static void destroy(void);
 static void on_key_down(int key_code);
+static void on_key_up(int key_code);
 static void on_mouse_down(int btn, int x, int y, int dz);
 static void render_init_screen(void);
 static void draw_hitboxes(void);
@@ -387,6 +388,7 @@ Scene scene_main_create(void) {
 	scene.draw = &draw;
 	scene.destroy = &destroy;
 	scene.on_key_down = &on_key_down;
+	scene.on_key_up = &on_key_up;
 	scene.on_mouse_down = &on_mouse_down;
 	// TODO-IF: Register more event callback functions such as keyboard, mouse, ...
 	game_log("Start scene created");
