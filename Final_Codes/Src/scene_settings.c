@@ -28,8 +28,10 @@
 // TODO-IF: More variables and functions that will only be accessed
 // inside this scene. They should all have the 'static' prefix.
 Checkbox worm_mode_checkbox;
+Checkbox better_BGM_checkbox;
 static void init(){
 	worm_mode_checkbox = checkbox_create(SCREEN_W/2 - 200, SCREEN_H/2 - 200, 32, 32, "Assets/checkbox_blank.png", "Assets/checkbox_hover.png", "Assets/checkbox_checked.png", &worm_mode);
+	better_BGM_checkbox = checkbox_create(SCREEN_W/2 - 200, SCREEN_H/2 - 150, 32, 32, "Assets/checkbox_blank.png", "Assets/checkbox_hover.png", "Assets/checkbox_checked.png", &betterBGM);
 }
 static void draw(void ){
 	al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -47,8 +49,17 @@ static void draw(void ){
 		al_map_rgb(255, 255, 255),
 		SCREEN_W/2 - 150,
 		SCREEN_H/2 - 200,
-		NULL,
+		0,
 		"Worm Mode"
+	);
+	drawCheckbox(better_BGM_checkbox);
+	al_draw_text(
+		menuFont,
+		al_map_rgb(255, 255, 255),
+		SCREEN_W/2 - 150,
+		SCREEN_H/2 - 150,
+		0,
+		"Better BGM"
 	);
 }
 
@@ -63,9 +74,11 @@ static void on_key_down(int keycode) {
 }
 static void on_mouse_move(int a, int mouse_x, int mouse_y, int f) {
 	worm_mode_checkbox.hovered = checkboxHover(worm_mode_checkbox, mouse_x, mouse_y);
+	better_BGM_checkbox.hovered = checkboxHover(better_BGM_checkbox, mouse_x, mouse_y);
 }
 static void on_mouse_down(int a, int mouse_x, int mouse_y, int f) {
 	if (worm_mode_checkbox.hovered) *worm_mode_checkbox.flag = !(*worm_mode_checkbox.flag);
+	if (better_BGM_checkbox.hovered) *better_BGM_checkbox.flag = !(*better_BGM_checkbox.flag);
 }
 static void destroy(){
 
