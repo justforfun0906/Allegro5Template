@@ -1,8 +1,22 @@
 // TODO-HACKATHON 3-9: Create scene_settings.h and scene_settings.c.
 // No need to do anything for this part. We've already done it for
 // you, so this 2 files is like the default scene template.
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_native_dialog.h>
+#include <math.h>
+#include "scene_menu_object.h"
+#include "scene_settings.h"
+#include "scene_game.h"
+#include "scene_menu.h"
+#include "utility.h"
+#include "shared.h"
 #include "scene_leaderboard.h"
-
+#include "scene_menu_object.h"
 // Variables and functions with 'static' prefix at the top level of a
 // source file is only accessible in that file ("file scope", also
 // known as "internal linkage"). If other files has the same variable
@@ -12,19 +26,23 @@
 
 // TODO-IF: More variables and functions that will only be accessed
 // inside this scene. They should all have the 'static' prefix.
-
-static void draw(void ){
-	al_clear_to_color(al_map_rgb(0, 0, 0));
-	al_draw_text(
-		menuFont,
-		al_map_rgb(255, 255, 255),
-		SCREEN_W/2,
-		SCREEN_H - 150,
-		ALLEGRO_ALIGN_CENTER,
-		"<ENTER> Back to menu"
-	);
+bool recording = false;
+Button btn_record;
+static void init(){
+    btn_record = button_create(730, 20, 50, 50, "Assets/record.png", "Assets/record2.png");
 }
-
+static void draw(){
+    al_clear_to_color(al_map_rgb(0, 0, 0));
+    al_draw_text(
+        menuFont,
+        al_map_rgb(255, 255, 255),
+        SCREEN_W/2,
+        SCREEN_H - 150,
+        ALLEGRO_ALIGN_CENTER,
+        "<ENTER> Back to menu"
+    );
+    drawButton(btn_record);
+}
 static void on_key_down(int keycode) {
 	switch (keycode) {
 		case ALLEGRO_KEY_ENTER:
@@ -34,14 +52,30 @@ static void on_key_down(int keycode) {
 			break;
 	}
 }
-
+static void on_mouse_move(int a, int mouse_x, int mouse_y, int f) {
+	btn_record.hovered = buttonHover(btn_record, mouse_x, mouse_y);
+}
+static void on_mouse_down(){
+    if(btn_record.hovered){
+        recording = !recording;
+        game_log("clicked");
+        if(recording){
+            game_log("Recording");
+        }    
+        else{
+            game_log("Stop Recording");
+        }
+    }
+}
 // The only function that is shared across files.
 Scene scene_leaderboard_create(void) {
 	Scene scene;
 	memset(&scene, 0, sizeof(Scene));
 	scene.name = "leaderboard";
+    scene.initialize  = &init;
 	scene.draw = &draw;
 	scene.on_key_down = &on_key_down;
+    scene.on_mouse_move = &on_mouse_move;
 	// TODO-IF: Register more event callback functions such as keyboard, mouse, ...
 	game_log("Settings scene created");
 	return scene;
