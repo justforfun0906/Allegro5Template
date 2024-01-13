@@ -39,7 +39,11 @@ static void init() {
 	gameTitleH = al_get_bitmap_height(gameTitle);
 	stop_bgm(menuBGM);
 	menuBGM = play_bgm(themeMusic, music_volume);
-
+	if(betterBGM){
+		themeMusic = load_audio("Assets/Music/original_theme.ogg");
+		PACMAN_MOVESOUND = load_audio("Assets/Music/pacman_pop.ogg");
+		PACMAN_DEATH_SOUND = load_audio("Assets/Music/Mario_death.ogg");
+	}
 }
 
 
