@@ -156,7 +156,24 @@ static void on_mouse_down(int a, int mouse_x, int mouse_y, int f) {
 	if (key_bind_right_checkbox.hovered) *key_bind_right_checkbox.flag = !(*key_bind_right_checkbox.flag);
 }
 static void destroy(){
-
+	al_destroy_bitmap(worm_mode_checkbox.default_img);
+	al_destroy_bitmap(worm_mode_checkbox.hovered_img);
+	al_destroy_bitmap(worm_mode_checkbox.checked_img);
+	al_destroy_bitmap(better_BGM_checkbox.default_img);
+	al_destroy_bitmap(better_BGM_checkbox.hovered_img);
+	al_destroy_bitmap(better_BGM_checkbox.checked_img);
+	al_destroy_bitmap(key_bind_up_checkbox.default_img);
+	al_destroy_bitmap(key_bind_up_checkbox.hovered_img);
+	al_destroy_bitmap(key_bind_up_checkbox.checked_img);
+	al_destroy_bitmap(key_bind_down_checkbox.default_img);
+	al_destroy_bitmap(key_bind_down_checkbox.hovered_img);
+	al_destroy_bitmap(key_bind_down_checkbox.checked_img);
+	al_destroy_bitmap(key_bind_left_checkbox.default_img);
+	al_destroy_bitmap(key_bind_left_checkbox.hovered_img);
+	al_destroy_bitmap(key_bind_left_checkbox.checked_img);
+	al_destroy_bitmap(key_bind_right_checkbox.default_img);
+	al_destroy_bitmap(key_bind_right_checkbox.hovered_img);
+	al_destroy_bitmap(key_bind_right_checkbox.checked_img);
 }
 // The only function that is shared across files.
 Scene scene_settings_create(void) {

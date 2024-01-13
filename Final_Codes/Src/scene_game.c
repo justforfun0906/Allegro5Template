@@ -55,6 +55,7 @@ int down_keycode;
 int left_keycode;
 int right_keycode;
 static void init(void) {
+	Ctrl_pressed = false;
 	game_over = false;
 	game_main_Score = 0;
 	// create map
@@ -351,13 +352,14 @@ static void on_key_down(int key_code) {
 				else
 					game_log("pacman wallhack off\n");
 			}
+			break;
 		case ALLEGRO_KEY_RCTRL:
 			Ctrl_pressed = true;
-			//game_log("Ctrl pressed");
+			game_log("Ctrl pressed");
 			break;
 		case ALLEGRO_KEY_LCTRL:
 			Ctrl_pressed = true;
-			//game_log("Ctrl pressed");
+			game_log("Ctrl pressed");
 			break;
 		default:
 			break;
@@ -367,11 +369,11 @@ static void on_key_up(int key_code) {
 	switch(key_code){
 		case ALLEGRO_KEY_RCTRL:
 			Ctrl_pressed = false;
-			//game_log("Ctrl released");
+			game_log("Ctrl released");
 			break;
 		case ALLEGRO_KEY_LCTRL:
 			Ctrl_pressed = false;
-			//game_log("Ctrl released");
+			game_log("Ctrl released");
 			break;
 		default:
 			break;
