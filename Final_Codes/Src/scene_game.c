@@ -408,6 +408,9 @@ int64_t get_power_up_duration(void){
 int64_t get_power_up_timer_tick(void){
 	return al_get_timer_count(power_up_timer);
 }
+int64_t get_game_score(void){
+	return game_main_Score;
+}
 // Functions without 'static', 'extern' prefixes is just a normal
 // function, they can be accessed by other files using 'extern'.
 // Define your normal function prototypes below.

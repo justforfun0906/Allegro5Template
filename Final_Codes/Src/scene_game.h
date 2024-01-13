@@ -9,6 +9,6 @@ Scene scene_main_create(void);
 
 int64_t get_power_up_timer_tick();
 int64_t get_power_up_duration();
-
+int64_t get_game_score();
 
 #endif

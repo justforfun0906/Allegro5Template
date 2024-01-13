@@ -27,11 +27,22 @@
 // TODO-IF: More variables and functions that will only be accessed
 // inside this scene. They should all have the 'static' prefix.
 FILE* score_data = NULL;
-bool recording = false;
+bool recording = true;
 char name[100];
+int64_t score;
 Button btn_record;
+int score_list[15];
+char name_list[15][100];
+int man_count;
 static void init(){
+    recording = true;
     btn_record = button_create(730, 20, 50, 50, "Assets/record.png", "Assets/record2.png");
+    score_data = fopen("Assets/score_data.txt", "r");
+    score = get_game_score();
+    fscanf(score_data, "%d", &man_count);
+    for(int i=0;i<man_count;i++){
+        fscanf(score_data, "%s %d", name_list[i], &score_list[i]);
+    }
 }
 static void draw(){
     al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -53,14 +64,9 @@ static void draw(){
         ALLEGRO_ALIGN_CENTER,
         output_name
     );
-    score_data = fopen("Assets/score_data.txt", "r");
-    int man_count;
-    fscanf(score_data, "%d", &man_count);
     for(int i=0;i<man_count;i++){
-        char output[100], board_name[100];
-        int board_score;
-        fscanf(score_data, "%s %d", board_name, &board_score);
-        sprintf(output, "%s %d", board_name, board_score);
+        char output[100];
+        sprintf(output, "%s %d", name_list[i], score_list[i]);
         al_draw_text(
             menuFont,
             al_map_rgb(255, 255, 255),
@@ -72,12 +78,37 @@ static void draw(){
     }
     drawButton(btn_record);
 }
+static void update_list(){
+    int temp_score = score;
+    char temp_name[100];
+    strcpy(temp_name, name);
+    if(man_count<10) man_count++;
+    for(int i=0;i<man_count;i++){
+        if(score_list[i]<temp_score){
+            int temp = score_list[i];
+            score_list[i] = temp_score;
+            temp_score = temp;
+            char temp2[100];
+            strcpy(temp2, name_list[i]);
+            strcpy(name_list[i], temp_name);
+            strcpy(temp_name, temp2);
+        }
+    }
+    FILE* updated_score_data = fopen("Assets/score_data.txt", "w");
+    fprintf(updated_score_data,"%d\n",man_count);
+    for(int i=0;i<man_count;i++){
+        fprintf(updated_score_data,"%s %d\n",name_list[i],score_list[i]);
+    }
+    strcpy(name, "");
+    return;
+}
 static void on_key_down(int keycode) {
     if(recording){
         if(keycode<=26&&keycode>=1){//is english character
             char temp = 'A'+keycode-1;
             strcat(name, &temp);
         }else if(ALLEGRO_KEY_ENTER==keycode){
+            update_list();
             recording = false;
             game_log("Stop Recording");
         }
@@ -101,9 +132,15 @@ static void on_mouse_down(){
             game_log("Recording");
         }    
         else{
+            update_list();
             game_log("Stop Recording");
         }
     }
+}
+static void destroy(){
+    fclose(score_data);
+    al_destroy_bitmap(btn_record.default_img);
+    al_destroy_bitmap(btn_record.hovered_img);
 }
 // The only function that is shared across files.
 Scene scene_leaderboard_create(void) {
@@ -112,6 +149,7 @@ Scene scene_leaderboard_create(void) {
 	scene.name = "leaderboard";
     scene.initialize  = &init;
 	scene.draw = &draw;
+    scene.destroy = &destroy;
 	scene.on_key_down = &on_key_down;
     scene.on_mouse_move = &on_mouse_move;
     scene.on_mouse_down = &on_mouse_down;
