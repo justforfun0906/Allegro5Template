@@ -29,6 +29,10 @@ void shared_init(void) {
 	PACMAN_MOVESOUND = load_audio("Assets/Music/pacman-chomp.ogg");
 	PACMAN_DEATH_SOUND = load_audio("Assets/Music/pacman_death.ogg");
 	menuFont = load_font("Assets/Minecraft.ttf", fontSize);
+	up_keycode = ALLEGRO_KEY_W;
+	down_keycode = ALLEGRO_KEY_S;
+	left_keycode = ALLEGRO_KEY_A;
+	right_keycode = ALLEGRO_KEY_D;
 }
 
 void shared_destroy(void) {

@@ -23,6 +23,7 @@ extern float effect_volume;
 extern bool gameDone;
 extern bool worm_mode;
 extern bool betterBGM;
+extern int up_keycode, down_keycode, left_keycode, right_keycode;
 
 // Initialize shared variables and resources.
 // Allows the game to perform any initialization it needs before

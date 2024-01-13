@@ -73,6 +73,8 @@ static void draw(void ){
 		0,
 		"Better BGM"
 	);
+	char output[100];
+	sprintf(output, "Key Bind Up: %s", al_keycode_to_name(up_keycode));
 	drawCheckbox(key_bind_up_checkbox);
 	al_draw_text(
 		menuFont,
@@ -80,8 +82,9 @@ static void draw(void ){
 		SCREEN_W/2 - 150,
 		SCREEN_H/2 - 170,
 		0,
-		"Key Bind Up"
+		output
 	);
+	sprintf(output, "Key Bind Down: %s", al_keycode_to_name(down_keycode));
 	drawCheckbox(key_bind_down_checkbox);
 	al_draw_text(
 		menuFont,
@@ -89,8 +92,9 @@ static void draw(void ){
 		SCREEN_W/2 - 150,
 		SCREEN_H/2 - 120,
 		0,
-		"Key Bind Down"
+		output
 	);
+	sprintf(output, "Key Bind Left: %s", al_keycode_to_name(left_keycode));
 	drawCheckbox(key_bind_left_checkbox);
 	al_draw_text(
 		menuFont,
@@ -98,8 +102,9 @@ static void draw(void ){
 		SCREEN_W/2 - 150,
 		SCREEN_H/2 - 70,
 		0,
-		"Key Bind Left"
+		output
 	);
+	sprintf(output, "Key Bind Right: %s", al_keycode_to_name(right_keycode));
 	drawCheckbox(key_bind_right_checkbox);
 	al_draw_text(
 		menuFont,
@@ -107,17 +112,31 @@ static void draw(void ){
 		SCREEN_W/2 - 150,
 		SCREEN_H/2 - 20,
 		0,
-		"Key Bind Right"
+		output
 	);
 }
 
 static void on_key_down(int keycode) {
-	switch (keycode) {
-		case ALLEGRO_KEY_ENTER:
-			game_change_scene(scene_menu_create());
-			break;
-		default:
-			break;
+	if(key_bind_up){
+		up_keycode = keycode;
+		key_bind_up = false;
+	}else if(key_bind_down){
+		down_keycode = keycode;
+		key_bind_down = false;
+	}else if(key_bind_left){
+		left_keycode = keycode;
+		key_bind_left = false;
+	}else if(key_bind_right){
+		right_keycode = keycode;
+		key_bind_right = false;
+	}else{
+		switch (keycode){
+			case ALLEGRO_KEY_ENTER:
+				game_change_scene(scene_menu_create());
+				break;
+			default:
+				break;
+		}
 	}
 }
 static void on_mouse_move(int a, int mouse_x, int mouse_y, int f) {

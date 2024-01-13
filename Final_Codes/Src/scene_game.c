@@ -50,7 +50,10 @@ static void on_key_up(int key_code);
 static void on_mouse_down(int btn, int x, int y, int dz);
 static void render_init_screen(void);
 static void draw_hitboxes(void);
-
+int up_keycode;
+int down_keycode;
+int left_keycode;
+int right_keycode;
 static void init(void) {
 	game_over = false;
 	game_main_Score = 0;
@@ -289,16 +292,19 @@ static void destroy(void) {
 }
 
 static void on_key_down(int key_code) {
+	if(key_code == up_keycode){
+		pacman_NextMove(pman, UP);
+	}else if(key_code == left_keycode){
+		pacman_NextMove(pman, LEFT);
+	}else if(key_code == down_keycode){
+		pacman_NextMove(pman, DOWN);
+	}else if (key_code == right_keycode){
+		pacman_NextMove(pman, RIGHT);
+	}
 	switch (key_code)
 	{
 		// TODO-HACKATHON 1-1: Use allegro pre-defined enum ALLEGRO_KEY_<KEYNAME> to controll pacman movement
 		// we provided you a function `pacman_NextMove` to set the pacman's next move direction.
-		case ALLEGRO_KEY_W:
-			pacman_NextMove(pman, UP);
-			break;
-		case ALLEGRO_KEY_A:
-			pacman_NextMove(pman, LEFT);
-			break;
 		case ALLEGRO_KEY_S:
 			if(Ctrl_pressed) {
 				ghost_stop = !ghost_stop;
@@ -308,10 +314,6 @@ static void on_key_down(int key_code) {
 					game_log("ghost move\n");
 				break;
 			}
-			pacman_NextMove(pman, DOWN);
-			break;
-		case ALLEGRO_KEY_D:
-			pacman_NextMove(pman, RIGHT);
 			break;
 		case ALLEGRO_KEY_C:
 			cheat_mode = !cheat_mode;
