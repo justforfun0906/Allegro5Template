@@ -16,7 +16,7 @@ int fontSize = 30;
 float music_volume = 0.5;
 float effect_volume = 0.5;
 bool gameDone = false;
-
+bool worm_mode = false;
 /*
 	A way to accelerate is load assets once.
 	And delete them at the end.

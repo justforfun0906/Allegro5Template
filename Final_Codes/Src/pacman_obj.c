@@ -1,6 +1,7 @@
 #include <allegro5/allegro_primitives.h>
 #include "pacman_obj.h"
 #include "map.h"
+#include "shared.h"
 /* Static variables */
 static const int start_grid_x = 25, start_grid_y = 25;		// where to put pacman at the beginning
 static const int fix_draw_pixel_offset_x = -3, fix_draw_pixel_offset_y = -3;  // draw offset 
@@ -74,8 +75,15 @@ Pacman* pacman_create() {
 	pman->death_anim_counter = al_create_timer(1.0f / 8.0f);
 	pman->powerUp = false;
 	/* load sprites */
-	pman->move_sprite = load_bitmap("Assets/pacman_move.png");
-	pman->die_sprite = load_bitmap("Assets/pacman_die.png");
+	// TODO-CHANGE-CHARACTER: load pacman sprites
+	if(worm_mode){
+		pman->move_sprite = load_bitmap("Assets/worm.png");
+		pman->die_sprite = load_bitmap("Assets/worm_die.png");
+	}
+	else{
+		pman->move_sprite = load_bitmap("Assets/pacman_move.png");
+		pman->die_sprite = load_bitmap("Assets/pacman_die.png");
+	}
 	return pman;
 
 }

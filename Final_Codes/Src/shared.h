@@ -21,6 +21,7 @@ extern int fontSize;
 extern float music_volume;
 extern float effect_volume;
 extern bool gameDone;
+extern bool worm_mode;
 
 // Initialize shared variables and resources.
 // Allows the game to perform any initialization it needs before
