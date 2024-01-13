@@ -2,7 +2,22 @@
 // No need to do anything for this part. We've already done it for
 // you, so this 2 files is like the default scene template.
 #include "scene_settings.h"
-
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_native_dialog.h>
+#include <math.h>
+#include "scene_menu_object.h"
+#include "scene_settings.h"
+#include "scene_game.h"
+#include "scene_menu.h"
+#include "utility.h"
+#include "shared.h"
+#include "scene_leaderboard.h"
+#include "scene_menu_object.h"
 // Variables and functions with 'static' prefix at the top level of a
 // source file is only accessible in that file ("file scope", also
 // known as "internal linkage"). If other files has the same variable

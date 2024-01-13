@@ -11,6 +11,14 @@ typedef struct Button {
 	ALLEGRO_BITMAP* hovered_img;
 	bool hovered;
 }Button;
+typedef struct Checkbox{
+	RecArea body;
+	ALLEGRO_BITMAP* default_img;
+	ALLEGRO_BITMAP* hovered_img;
+	ALLEGRO_BITMAP* checked_img;
+	bool hovered;
+	bool* flag;
+}Checkbox;
 
 Button button_create(float, float, float, float, const char*, const char*);
 void drawButton(Button button);

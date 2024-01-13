@@ -50,3 +50,50 @@ bool buttonHover(Button button, int mouse_x, int mouse_y) {
 	return pnt_in_rect(mouse_x, mouse_y, button.body);
 	return false;
 }
+
+Checkbox checkbox_create(float x, float y, float w, float h, const char* default_image_path, const char* hovered_image_path, const char* checked_image_path, bool* flag) {
+
+	Checkbox checkbox;
+	memset(&checkbox, 0, sizeof(Checkbox));
+
+	checkbox.default_img = load_bitmap(default_image_path);
+	if (hovered_image_path) {
+		checkbox.hovered_img = load_bitmap(hovered_image_path);
+	}
+	if (checked_image_path) {
+		checkbox.checked_img = load_bitmap(checked_image_path);
+	}
+
+	if (!checkbox.default_img) {
+		game_log("failed loading checkbox image!");
+	}
+
+	checkbox.body.x = x;
+	checkbox.body.y = y;
+	checkbox.body.w = w;
+	checkbox.body.h = h;
+	checkbox.flag = flag;
+
+	return checkbox;
+}
+void drawCheckbox(Checkbox checkbox){
+	ALLEGRO_BITMAP* _img = checkbox.hovered_img ?
+		checkbox.hovered ?
+		checkbox.hovered_img :
+		checkbox.default_img :
+		checkbox.default_img;
+	if (*checkbox.flag) {
+		_img = checkbox.checked_img;
+	}
+	al_draw_scaled_bitmap(
+		_img,
+		0, 0,
+		al_get_bitmap_width(_img), al_get_bitmap_height(_img),
+		checkbox.body.x, checkbox.body.y,
+		checkbox.body.w, checkbox.body.h, 0
+	);
+}
+bool checkboxHover(Checkbox checkbox, int mouse_x, int mouse_y) {
+	return pnt_in_rect(mouse_x, mouse_y, checkbox.body);
+	return false;
+}
