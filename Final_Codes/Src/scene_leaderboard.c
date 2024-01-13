@@ -27,6 +27,7 @@
 // TODO-IF: More variables and functions that will only be accessed
 // inside this scene. They should all have the 'static' prefix.
 bool recording = false;
+char name[100];
 Button btn_record;
 static void init(){
     btn_record = button_create(730, 20, 50, 50, "Assets/record.png", "Assets/record2.png");
@@ -41,16 +42,36 @@ static void draw(){
         ALLEGRO_ALIGN_CENTER,
         "<ENTER> Back to menu"
     );
+    char output_name[100];
+    sprintf(output_name, "Name: %s", name);
+    al_draw_text(
+        menuFont,
+        al_map_rgb(255, 255, 255),
+        SCREEN_W/2,
+        50,
+        ALLEGRO_ALIGN_CENTER,
+        output_name
+    );
     drawButton(btn_record);
 }
 static void on_key_down(int keycode) {
-	switch (keycode) {
-		case ALLEGRO_KEY_ENTER:
-			game_change_scene(scene_menu_create());
-			break;
-		default:
-			break;
-	}
+    if(recording){
+        if(keycode<=26&&keycode>=1){//is english character
+            char temp = 'A'+keycode-1;
+            strcat(name, &temp);
+        }else if(ALLEGRO_KEY_ENTER==keycode){
+            recording = false;
+            game_log("Stop Recording");
+        }
+    }else{
+        switch (keycode){
+            case ALLEGRO_KEY_ENTER:
+                game_change_scene(scene_menu_create());
+                break;
+            default:
+                break;
+        }
+    }
 }
 static void on_mouse_move(int a, int mouse_x, int mouse_y, int f) {
 	btn_record.hovered = buttonHover(btn_record, mouse_x, mouse_y);
