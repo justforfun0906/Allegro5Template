@@ -26,6 +26,7 @@
 
 // TODO-IF: More variables and functions that will only be accessed
 // inside this scene. They should all have the 'static' prefix.
+FILE* score_data = NULL;
 bool recording = false;
 char name[100];
 Button btn_record;
@@ -52,6 +53,23 @@ static void draw(){
         ALLEGRO_ALIGN_CENTER,
         output_name
     );
+    score_data = fopen("Assets/score_data.txt", "r");
+    int man_count;
+    fscanf(score_data, "%d", &man_count);
+    for(int i=0;i<man_count;i++){
+        char output[100], board_name[100];
+        int board_score;
+        fscanf(score_data, "%s %d", board_name, &board_score);
+        sprintf(output, "%s %d", board_name, board_score);
+        al_draw_text(
+            menuFont,
+            al_map_rgb(255, 255, 255),
+            SCREEN_W/2,
+            100+i*30,
+            ALLEGRO_ALIGN_CENTER,
+            output
+        );
+    }
     drawButton(btn_record);
 }
 static void on_key_down(int keycode) {
