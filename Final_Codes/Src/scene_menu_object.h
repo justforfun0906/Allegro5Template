@@ -19,9 +19,10 @@ typedef struct Checkbox{
 	bool hovered;
 	bool* flag;
 }Checkbox;
-
+Checkbox checkbox_create(float, float, float, float, const char*, const char*, const char*, bool*);
 Button button_create(float, float, float, float, const char*, const char*);
 void drawButton(Button button);
 bool buttonHover(Button, int, int);
-
+void drawCheckbox(Checkbox checkbox);
+bool checkboxHover(Checkbox, int, int);
 #endif

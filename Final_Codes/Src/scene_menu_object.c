@@ -77,13 +77,15 @@ Checkbox checkbox_create(float x, float y, float w, float h, const char* default
 	return checkbox;
 }
 void drawCheckbox(Checkbox checkbox){
-	ALLEGRO_BITMAP* _img = checkbox.hovered_img ?
-		checkbox.hovered ?
-		checkbox.hovered_img :
-		checkbox.default_img :
-		checkbox.default_img;
+	ALLEGRO_BITMAP* _img;
 	if (*checkbox.flag) {
 		_img = checkbox.checked_img;
+	}else{
+		if(checkbox.hovered){
+			_img = checkbox.hovered_img;
+		}else{
+			_img = checkbox.default_img;
+		}
 	}
 	al_draw_scaled_bitmap(
 		_img,
