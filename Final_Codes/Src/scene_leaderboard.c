@@ -58,7 +58,6 @@ static void on_mouse_move(int a, int mouse_x, int mouse_y, int f) {
 static void on_mouse_down(){
     if(btn_record.hovered){
         recording = !recording;
-        game_log("clicked");
         if(recording){
             game_log("Recording");
         }    
@@ -76,6 +75,7 @@ Scene scene_leaderboard_create(void) {
 	scene.draw = &draw;
 	scene.on_key_down = &on_key_down;
     scene.on_mouse_move = &on_mouse_move;
+    scene.on_mouse_down = &on_mouse_down;
 	// TODO-IF: Register more event callback functions such as keyboard, mouse, ...
 	game_log("Settings scene created");
 	return scene;
